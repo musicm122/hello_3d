@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "TgAtfdehG2HxTHRpho+sRhbjYIT4cyL8QsMcAMZ8lyuWZi8NoFvYTynt9pWH1ktM9g+R6ytNbYtUpkC0RPGI4g==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\godot\\Experminents\\hello_3d\\CoreFS\\CoreFS.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\terra\\.nuget\\packages\\fsharp.core\\6.0.1\\fsharp.core.6.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

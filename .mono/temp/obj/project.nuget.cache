@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "vTIZhXGcB2KzrTwOqI7gBOoHUf6q3ZngYeT8AI1QPuQTrNopAk70BvUIHNxlCqLasqQTWRPxEIaCT5Oy1f0hkQ==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\godot\\Experminents\\hello_3d\\Hello 3d.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\terra\\.nuget\\packages\\fsharp.core\\6.0.1\\fsharp.core.6.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

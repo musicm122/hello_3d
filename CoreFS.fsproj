@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latestmajor</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="GodotSharp">
+      <HintPath>.mono/assemblies/GodotSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="GodotSharpEditor">
+      <HintPath>.mono\assemblies\Debug\GodotSharpEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Library.fs" />
+    <Compile Include="MainFs.fs" />
+  </ItemGroup>
+
+</Project>
