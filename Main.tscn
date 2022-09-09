@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Main.cs" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
 
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 30, 1, 30 )
@@ -8,7 +9,7 @@ extents = Vector3( 30, 1, 30 )
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 60, 2, 60 )
 
-[sub_resource type="CapsuleMesh" id=1]
+[sub_resource type="SphereMesh" id=4]
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -23,15 +24,28 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.19209e-05, 0 )
 mesh = SubResource( 3 )
 
+[node name="MeshInstance2" type="MeshInstance" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.327, 1.805, 1 )
+mesh = SubResource( 4 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 167.767, -137.685, 1 )
+mesh = SubResource( 4 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Ground"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5443, 3.26536, 0.772349 )
+mesh = SubResource( 4 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 14.659, 14.445 )
 shadow_enabled = true
 
-[node name="Spatial" type="Spatial" parent="."]
+[node name="Player" parent="." instance=ExtResource( 2 )]
 
-[node name="MeshInstance" type="MeshInstance" parent="Spatial"]
-transform = Transform( 0.999321, -0.036853, 0, 0.036853, 0.999321, 0, 0, 0, 1, 0, 2.39667, 0.238148 )
-mesh = SubResource( 1 )
+[node name="CameraPivot" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0 )
 
-[node name="Camera" type="Camera" parent="Spatial/MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0670347, 0.151256, 0 )
+[node name="Camera" type="Camera" parent="CameraPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 19 )
+projection = 1
+size = 19.0

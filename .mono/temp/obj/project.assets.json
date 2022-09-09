@@ -1,53 +1,53 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {
+    ".NETFramework,Version=v4.7.2": {
       "FSharp.Core/6.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.1/FSharp.Core.dll": {}
+          "lib/netstandard2.0/FSharp.Core.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.1/FSharp.Core.dll": {}
+          "lib/netstandard2.0/FSharp.Core.dll": {}
         },
         "resource": {
-          "lib/netstandard2.1/cs/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/cs/FSharp.Core.resources.dll": {
             "locale": "cs"
           },
-          "lib/netstandard2.1/de/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/de/FSharp.Core.resources.dll": {
             "locale": "de"
           },
-          "lib/netstandard2.1/es/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/es/FSharp.Core.resources.dll": {
             "locale": "es"
           },
-          "lib/netstandard2.1/fr/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/fr/FSharp.Core.resources.dll": {
             "locale": "fr"
           },
-          "lib/netstandard2.1/it/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/it/FSharp.Core.resources.dll": {
             "locale": "it"
           },
-          "lib/netstandard2.1/ja/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/ja/FSharp.Core.resources.dll": {
             "locale": "ja"
           },
-          "lib/netstandard2.1/ko/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/ko/FSharp.Core.resources.dll": {
             "locale": "ko"
           },
-          "lib/netstandard2.1/pl/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/pl/FSharp.Core.resources.dll": {
             "locale": "pl"
           },
-          "lib/netstandard2.1/pt-BR/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/pt-BR/FSharp.Core.resources.dll": {
             "locale": "pt-BR"
           },
-          "lib/netstandard2.1/ru/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/ru/FSharp.Core.resources.dll": {
             "locale": "ru"
           },
-          "lib/netstandard2.1/tr/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/tr/FSharp.Core.resources.dll": {
             "locale": "tr"
           },
-          "lib/netstandard2.1/zh-Hans/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/zh-Hans/FSharp.Core.resources.dll": {
             "locale": "zh-Hans"
           },
-          "lib/netstandard2.1/zh-Hant/FSharp.Core.resources.dll": {
+          "lib/netstandard2.0/zh-Hant/FSharp.Core.resources.dll": {
             "locale": "zh-Hant"
           }
         },
@@ -59,11 +59,40 @@
           }
         }
       },
+      "FSharpPlus/1.3.0-CI02606": {
+        "type": "package",
+        "dependencies": {
+          "FSharp.Core": "4.6.2",
+          "System.ValueTuple": "4.4.0"
+        },
+        "frameworkAssemblies": [
+          "System.Runtime"
+        ],
+        "compile": {
+          "lib/net45/FSharpPlus.dll": {}
+        },
+        "runtime": {
+          "lib/net45/FSharpPlus.dll": {}
+        }
+      },
+      "System.ValueTuple/4.4.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net47/System.ValueTuple.dll": {}
+        },
+        "runtime": {
+          "lib/net47/System.ValueTuple.dll": {}
+        }
+      },
       "CoreFS/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
+        "framework": ".NETFramework,Version=v4.7.2",
         "dependencies": {
-          "FSharp.Core": "6.0.1"
+          "FSharp.Core": "6.0.1",
+          "FSharpPlus": "1.3.0-CI02606"
         },
         "compile": {
           "bin/placeholder/CoreFS.dll": {}
@@ -119,6 +148,145 @@
         "lib/netstandard2.1/zh-Hant/FSharp.Core.resources.dll"
       ]
     },
+    "FSharpPlus/1.3.0-CI02606": {
+      "sha512": "6p5eI6koh0Y82QdLwpBaUe7nrZWmEyDckHXshSW2INyLCMjJIPDQtsz1qb8U4B4JXj0GiEjAMiAbKc0OHZwpXQ==",
+      "type": "package",
+      "path": "fsharpplus/1.3.0-ci02606",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fable/Builders.fs",
+        "fable/Control/Alternative.fs",
+        "fable/Control/Applicative.fs",
+        "fable/Control/Arrow.fs",
+        "fable/Control/ArrowApply.fs",
+        "fable/Control/ArrowChoice.fs",
+        "fable/Control/Bifoldable.fs",
+        "fable/Control/Bitraversable.fs",
+        "fable/Control/Category.fs",
+        "fable/Control/Collection.fs",
+        "fable/Control/Comonad.fs",
+        "fable/Control/Converter.fs",
+        "fable/Control/Foldable.fs",
+        "fable/Control/Functor.fs",
+        "fable/Control/Indexable.fs",
+        "fable/Control/Invokable.fs",
+        "fable/Control/Monad.fs",
+        "fable/Control/MonadOps.fs",
+        "fable/Control/MonadTrans.fs",
+        "fable/Control/Monoid.fs",
+        "fable/Control/Numeric.fs",
+        "fable/Control/Traversable.fs",
+        "fable/Control/Tuple.fs",
+        "fable/Data/Cont.fs",
+        "fable/Data/Coproduct.fs",
+        "fable/Data/DList.fs",
+        "fable/Data/Error.fs",
+        "fable/Data/Free.fs",
+        "fable/Data/Identity.fs",
+        "fable/Data/Kleisli.fs",
+        "fable/Data/List.fs",
+        "fable/Data/Monoids.fs",
+        "fable/Data/MultiMap.fs",
+        "fable/Data/NonEmptyList.fs",
+        "fable/Data/NonEmptyMap.fs",
+        "fable/Data/NonEmptySeq.fs",
+        "fable/Data/NonEmptySet.fs",
+        "fable/Data/Option.fs",
+        "fable/Data/ParallelArray.fs",
+        "fable/Data/Reader.fs",
+        "fable/Data/Seq.fs",
+        "fable/Data/State.fs",
+        "fable/Data/Validation.fs",
+        "fable/Data/Writer.fs",
+        "fable/Data/ZipList.fs",
+        "fable/Extensions/Array.fs",
+        "fable/Extensions/Async.fs",
+        "fable/Extensions/AsyncEnumerable.fs",
+        "fable/Extensions/Choice.fs",
+        "fable/Extensions/Dict.fs",
+        "fable/Extensions/Dictionary.fs",
+        "fable/Extensions/Enumerator.fs",
+        "fable/Extensions/Extensions.fs",
+        "fable/Extensions/IList.fs",
+        "fable/Extensions/IReadOnlyCollection.fs",
+        "fable/Extensions/IReadOnlyDictionary.fs",
+        "fable/Extensions/IReadOnlyList.fs",
+        "fable/Extensions/Lazy.fs",
+        "fable/Extensions/List.fs",
+        "fable/Extensions/Map.fs",
+        "fable/Extensions/Nullable.fs",
+        "fable/Extensions/Observable.fs",
+        "fable/Extensions/Option.fs",
+        "fable/Extensions/ResizeArray.fs",
+        "fable/Extensions/Result.fs",
+        "fable/Extensions/Seq.fs",
+        "fable/Extensions/String.fs",
+        "fable/Extensions/Task.fs",
+        "fable/Extensions/Tuple.fs",
+        "fable/FSharpPlus.fsproj",
+        "fable/Internals.fs",
+        "fable/Lens.fs",
+        "fable/Math/Applicative.fs",
+        "fable/Math/Generic.fs",
+        "fable/Memoization.fs",
+        "fable/Operators.fs",
+        "fable/Parsing.fs",
+        "fsharpplus.1.3.0-ci02606.nupkg.sha512",
+        "fsharpplus.nuspec",
+        "lib/net45/FSharpPlus.dll",
+        "lib/net45/FSharpPlus.xml",
+        "lib/net6.0/FSharpPlus.dll",
+        "lib/net6.0/FSharpPlus.xml",
+        "lib/netstandard2.0/FSharpPlus.dll",
+        "lib/netstandard2.0/FSharpPlus.xml"
+      ]
+    },
+    "System.ValueTuple/4.4.0": {
+      "sha512": "BahUww/+mdP4ARCAh2RQhQTg13wYLVrBb9SYVgW8ZlrwjraGCXHGjo0oIiUfZ34LUZkMMR+RAzR7dEY4S1HeQQ==",
+      "type": "package",
+      "path": "system.valuetuple/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.ValueTuple.dll",
+        "lib/net461/System.ValueTuple.xml",
+        "lib/net47/System.ValueTuple.dll",
+        "lib/net47/System.ValueTuple.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.ValueTuple.dll",
+        "lib/netstandard1.0/System.ValueTuple.xml",
+        "lib/netstandard2.0/_._",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net461/System.ValueTuple.dll",
+        "ref/net461/System.ValueTuple.xml",
+        "ref/net47/System.ValueTuple.dll",
+        "ref/net47/System.ValueTuple.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard2.0/_._",
+        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.valuetuple.4.4.0.nupkg.sha512",
+        "system.valuetuple.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "CoreFS/1.0.0": {
       "type": "project",
       "path": "CoreFS/CoreFS.fsproj",
@@ -126,7 +294,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net6.0": [
+    ".NETFramework,Version=v4.7.2": [
       "CoreFS >= 1.0.0"
     ]
   },
@@ -147,15 +315,15 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net6.0"
+        "net472"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net472": {
+          "targetAlias": "net472",
           "projectReferences": {
             "C:\\Projects\\godot\\Experminents\\hello_3d\\CoreFS\\CoreFS.fsproj": {
               "projectPath": "C:\\Projects\\godot\\Experminents\\hello_3d\\CoreFS\\CoreFS.fsproj"
@@ -170,23 +338,8 @@
       }
     },
     "frameworks": {
-      "net6.0": {
-        "targetAlias": "net6.0",
-        "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48"
-        ],
-        "assetTargetFallback": true,
-        "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
+      "net472": {
+        "targetAlias": "net472",
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.108\\RuntimeIdentifierGraph.json"
       }
     }

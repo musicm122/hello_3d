@@ -1,6 +1,5 @@
 using CoreFS;
-using Godot;
 
-public class Main : MainFs
+public class Main : MainFS
 {
 }

@@ -14,5 +14,6 @@
   </ItemGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">C:\Users\terra\.nuget\packages\fsharp.core\6.0.1</PkgFSharp_Core>
+    <PkgFSharpPlus Condition=" '$(PkgFSharpPlus)' == '' ">C:\Users\terra\.nuget\packages\fsharpplus\1.3.0-ci02606</PkgFSharpPlus>
   </PropertyGroup>
 </Project>
