@@ -1,11 +1,8 @@
 ﻿namespace CoreFS.Util
 
-open System
 open CoreFS.Util.Constants
 open CoreFS.Util.DU
 open CoreFS.Util.Domain
-open Godot
-open Microsoft.FSharp.Reflection
 
 module InputUtil =
     let toActionInput (name: string) : ActionInput =
@@ -14,8 +11,7 @@ module InputUtil =
             let defaults = JumpingMovingData.Default()
             ActionInput.Jump defaults
         | "pause" -> ActionInput.Pause true
-        | _ -> ActionInput.Unsupported
-
+        | _ -> ActionInput.Idle
 
     let toMovementInput (name: string) =
         match name with
@@ -24,6 +20,28 @@ module InputUtil =
         | "move_forward" -> MovementInput.Forward
         | "move_back" -> MovementInput.Back
         | _ -> MovementInput.Unsupported
+
+    let toInput (name: string) : InputType =
+        match name with
+        | "jump" ->
+            let defaults = JumpingMovingData.Default()
+            Action(ActionInput.Jump defaults)
+        | "pause" -> Action(ActionInput.Pause true)
+        | "move_left" -> Movement(MovementInput.Left)
+        | "move_right" -> Movement(MovementInput.Right)
+        | "move_forward" -> Movement(MovementInput.Forward)
+        | "move_back" -> Movement(MovementInput.Back)
+        | _ -> Movement(MovementInput.Unsupported)
+
+    let detectActiveInput inputCheck =
+        let applyInputCheck checkTestFun (input: InputType) : PlayerState = checkTestFun input
+
+        let testAnyInput =
+            applyInputCheck inputCheck
+
+        InputConstants.availableInputs
+        |> Array.map (toInput)
+        |> Array.map (testAnyInput)
 
 
     let detectAction actionCheck =
@@ -37,7 +55,7 @@ module InputUtil =
         |> Array.map (testActionInput)
 
     let detectMovement inputCheck =
-        let applyInputCheck checkTestFun (input: MovementInput) : PlayerState   = checkTestFun input
+        let applyInputCheck checkTestFun (input: MovementInput) : PlayerState = checkTestFun input
 
         let testMoveInput =
             applyInputCheck inputCheck

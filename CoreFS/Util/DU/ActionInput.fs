@@ -2,17 +2,17 @@
 
 open CoreFS.Util.Constants
 open CoreFS.Util.Domain
-open Godot
 open Microsoft.FSharp.Reflection
 
 type ActionInput =
     | Jump of JumpingMovingData
     | Pause of bool
-    | Unsupported
+    | Idle
+
     member this.AsString() =
         match this with
         | Jump (_) -> ActionConstants.JumpAction
-        | _ -> MovementConstants.UnsupportedInput
+        | _ -> Idle.ToString()
 
     static member ActionInputs =
         FSharpType.GetUnionCases typeof<ActionInput>

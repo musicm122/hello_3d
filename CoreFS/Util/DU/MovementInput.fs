@@ -35,4 +35,3 @@ type MovementInput =
 type InputType =
     | Movement of MovementInput
     | Action of ActionInput
-    

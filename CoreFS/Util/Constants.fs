@@ -15,27 +15,30 @@ module DefaultsValues =
 
     [<Literal>]
     let FallAcceleration = 75.0f
-    
-module ActionConstants = 
+
+module ActionConstants =
     [<Literal>]
     let JumpAction = "jump"
-    
+
     [<Literal>]
     let PauseAction = "pause"
-    
-    let  availableActions =
-        [| JumpAction
-           PauseAction |]
 
-module  MovementConstants =
+    let availableActions =
+        [| JumpAction; PauseAction |]
+
+module MovementConstants =
     [<Literal>]
     let MoveLeft = "move_left"
+
     [<Literal>]
     let MoveRight = "move_right"
+
     [<Literal>]
     let MoveForward = "move_forward"
+
     [<Literal>]
     let MoveBack = "move_back"
+
     [<Literal>]
     let UnsupportedInput = "Unsupported Input"
 
@@ -44,3 +47,8 @@ module  MovementConstants =
            MoveRight
            MoveForward
            MoveBack |]
+
+module InputConstants =
+    let availableInputs =
+        Array.concat [ MovementConstants.availableMovementInputs
+                       ActionConstants.availableActions ]
