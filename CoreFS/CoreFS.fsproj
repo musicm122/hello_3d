@@ -14,11 +14,13 @@
         <Compile Include="Util\DU\ActionInput.fs"/>
         <Compile Include="Util\DU\MovementInput.fs"/>
         <Compile Include="Util\Vector3Util.fs"/>
+        <Compile Include="Util\Physics.fs"/>
         <Compile Include="Util\RandomUtil.fs"/>
         <Compile Include="Util\InputUtil.fs"/>
         <Compile Include="Scenes\MainFS.fs"/>
         <Compile Include="Entities\MobFS.fs"/>
         <Compile Include="Entities\PlayerFS.fs"/>
+        <Content Include=".gitignore"/>
     </ItemGroup>
 
     <ItemGroup>

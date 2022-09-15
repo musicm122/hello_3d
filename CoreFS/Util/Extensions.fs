@@ -14,20 +14,25 @@ module Extensions =
 
     type KinematicBody with
         member this.GetAllColliders() : Option<seq<KinematicCollision>> =
-            match this.GetSlideCount() with
-            | 0 -> None
-            | _ ->
-                let result =
-                    seq {
-                        for x in 0 .. this.GetSlideCount() do
-                            yield this.GetSlideCollision(x)
-                    }
+            if this = null then
+                None
+            else
+                let slideCount = this.GetSlideCount()
 
-                Some(result)
+                match slideCount with
+                | 0 -> None
+                | _ ->
+                    let result =
+                        seq {
+                            for x in 0 .. this.GetSlideCount() - 1 do
+                                yield this.GetSlideCollision(x)
+                        }
+
+                    Some(result)
 
         member this.GetAllCollidersInGroup(groupName: string) =
             let inGroup (collider: KinematicCollision) : bool = collider.ColliderIsInGroup(groupName)
 
             match this.GetAllColliders() with
-            | Some colliders -> colliders |> Seq.filter (inGroup)
+            | Some colliders -> colliders |> Seq.filter inGroup
             | None -> Seq.empty

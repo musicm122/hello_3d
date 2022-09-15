@@ -1,5 +1,6 @@
 ﻿namespace CoreFS.Entities
 
+open CoreFS.Util
 open CoreFS.Util.Constants
 open CoreFS.Util.DU
 open CoreFS.Util.Domain
@@ -10,21 +11,17 @@ open CoreFS.Util.Extensions
 type PlayerFS() =
     inherit KinematicBody()
 
+    member this.applyVelocity(direction: Vector3) =
+        Physics.applyVelocity this.velocity direction this.Speed
 
-    let applyGravity (currentVelocity: Vector3) fallAcceleration delta =
-        let newY =
-            (currentVelocity.y - (fallAcceleration * delta))
+    member this.applyRotation(target: Spatial) =
+        Physics.applyRotation target this.velocity this.JumpImpulse
 
-        Vector3(currentVelocity.x, newY, currentVelocity.z)
+    member this.applyGravity(delta) =
+        Physics.applyGravity this.velocity this.FallAcceleration delta
 
-    member this.applyVelocity (direction: Vector3) (_: float32) =
-        let mutable result: Vector3 = this.velocity
-
-        result.x <- direction.x * this.Speed
-        result.z <- direction.z * this.Speed
-        //result <- applyGravity result fallAcceleration delta
-        result
-
+    member this.applySquashPhysics() =
+        Physics.applySquashPhysics this.velocity this.BounceImpulse
 
     member this.pollForInput() =
         let testForAction (action: ActionInput) : PlayerState =
@@ -125,25 +122,23 @@ type PlayerFS() =
         match state with
         | Idle idleState ->
             this.AnimationPlayer.PlaybackSpeed <- float32 idleState.PlaybackSpeed
-            this.velocity <- this.applyVelocity idleState.Direction delta
+            this.velocity <- this.applyVelocity idleState.Direction
             this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
         | Moving movingState ->
             this.pivot.LookAt(this.Translation + movingState.Direction, Vector3.Up)
             this.AnimationPlayer.PlaybackSpeed <- float32 movingState.PlaybackSpeed
-            this.velocity <- this.applyVelocity movingState.Direction delta
+            this.velocity <- this.applyVelocity movingState.Direction
             this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
 
         | Jumping jumpData -> // todo: jump input height is super height
             if isOnFloor then
-                this.velocity <- this.applyVelocity jumpData.Direction delta
+                this.velocity <- this.applyVelocity jumpData.Direction
 
                 let newYVelocity =
                     this.velocity.y + jumpData.JumpImpulse
 
                 this.velocity <- Vector3(this.velocity.x, newYVelocity, this.velocity.z)
                 this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
-
-
         | _ -> ()
 
     member this.MobStepHandler(slideCollision: KinematicCollision) =
@@ -151,30 +146,27 @@ type PlayerFS() =
 
         if Vector3.Up.Dot(slideCollision.Normal) > 0.1f then
             mob.squash ()
-            this.velocity <- Vector3(this.velocity.x, this.BounceImpulse, this.velocity.z)
+            this.velocity <- this.applySquashPhysics ()
 
     //input -> playerState-> side effects
     override this._PhysicsProcess(delta: float32) =
         let isOnFloor = this.IsOnFloor()
-        if isOnFloor then GD.Print isOnFloor
+        //if isOnFloor then GD.Print isOnFloor
 
         this.pollForInput ()
         |> Array.iter (fun state -> this.processState state isOnFloor delta)
 
-        this.velocity <- applyGravity this.velocity this.FallAcceleration delta
+        this.velocity <- this.applyGravity delta
         this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
 
         //todo: convert to state
         let colliders =
             this.GetAllCollidersInGroup("mob")
 
-        if Seq.isEmpty colliders <> true then
+        if Seq.isEmpty colliders = false then
             colliders |> Seq.iter (this.MobStepHandler)
 
-        let newRotation =
-            Mathf.Pi / 6f * this.velocity.y / this.JumpImpulse
-
-        this.pivot.Rotation <- Vector3(newRotation, this.pivot.Rotation.y, this.pivot.Rotation.z)
+        this.pivot.Rotation <- this.applyRotation this.pivot
 
 
 // this.velocity <- this.applyPhysics direction this.velocity delta
