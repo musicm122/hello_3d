@@ -1,3 +1,0 @@
-C:\Projects\godot\Experminents\hello_3d\obj\Debug\net6.0\CoreFS.fsproj.AssemblyReference.cache
-C:\Projects\godot\Experminents\hello_3d\obj\Debug\net6.0\CoreFS.AssemblyInfoInputs.cache
-C:\Projects\godot\Experminents\hello_3d\obj\Debug\net6.0\CoreFS.AssemblyInfo.fs
