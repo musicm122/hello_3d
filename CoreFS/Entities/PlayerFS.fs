@@ -5,9 +5,11 @@ open CoreFS.Util.DU
 open CoreFS.Util.Domain
 open CoreFS.Util.InputUtil
 open Godot
+open CoreFS.Util.Extensions
 
 type PlayerFS() =
     inherit KinematicBody()
+
 
     let applyGravity (currentVelocity: Vector3) fallAcceleration delta =
         let newY =
@@ -15,7 +17,7 @@ type PlayerFS() =
 
         Vector3(currentVelocity.x, newY, currentVelocity.z)
 
-    member this.applyVelocity (direction: Vector3) (delta: float32) =
+    member this.applyVelocity (direction: Vector3) (_: float32) =
         let mutable result: Vector3 = this.velocity
 
         result.x <- direction.x * this.Speed
@@ -114,7 +116,7 @@ type PlayerFS() =
         this.EmitSignal(nameof (HitSignal))
         this.QueueFree
 
-    member this.onMobDetector_BodyEntered(_) = this.die ()
+    member this.onMobDetector_BodyEntered _ = this.die ()
 
     override this._Ready() : unit = GD.Print "OnReady Player"
 
@@ -122,26 +124,34 @@ type PlayerFS() =
     member this.processState (state: PlayerState) (isOnFloor: bool) (delta: float32) =
         match state with
         | Idle idleState ->
-            this.AnimationPlayer.PlaybackSpeed <- (float32) idleState.PlaybackSpeed
+            this.AnimationPlayer.PlaybackSpeed <- float32 idleState.PlaybackSpeed
             this.velocity <- this.applyVelocity idleState.Direction delta
             this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
         | Moving movingState ->
             this.pivot.LookAt(this.Translation + movingState.Direction, Vector3.Up)
-            this.AnimationPlayer.PlaybackSpeed <- (float32) movingState.PlaybackSpeed
+            this.AnimationPlayer.PlaybackSpeed <- float32 movingState.PlaybackSpeed
             this.velocity <- this.applyVelocity movingState.Direction delta
             this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
 
         | Jumping jumpData -> // todo: jump input height is super height
-            this.velocity <- this.applyVelocity jumpData.Direction delta
+            if isOnFloor then
+                this.velocity <- this.applyVelocity jumpData.Direction delta
 
-            let newYVelocity =
-                this.velocity.y + jumpData.JumpImpulse
+                let newYVelocity =
+                    this.velocity.y + jumpData.JumpImpulse
 
-            this.velocity <- Vector3(this.velocity.x, newYVelocity, this.velocity.z)
-            this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
+                this.velocity <- Vector3(this.velocity.x, newYVelocity, this.velocity.z)
+                this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
+
 
         | _ -> ()
 
+    member this.MobStepHandler(slideCollision: KinematicCollision) =
+        let mob = slideCollision.Collider :?> MobFS
+
+        if Vector3.Up.Dot(slideCollision.Normal) > 0.1f then
+            mob.squash ()
+            this.velocity <- Vector3(this.velocity.x, this.BounceImpulse, this.velocity.z)
 
     //input -> playerState-> side effects
     override this._PhysicsProcess(delta: float32) =
@@ -152,6 +162,19 @@ type PlayerFS() =
         |> Array.iter (fun state -> this.processState state isOnFloor delta)
 
         this.velocity <- applyGravity this.velocity this.FallAcceleration delta
+        this.velocity <- this.MoveAndSlide(this.velocity, Vector3.Up)
+
+        //todo: convert to state
+        let colliders =
+            this.GetAllCollidersInGroup("mob")
+
+        if Seq.isEmpty colliders <> true then
+            colliders |> Seq.iter (this.MobStepHandler)
+
+        let newRotation =
+            Mathf.Pi / 6f * this.velocity.y / this.JumpImpulse
+
+        this.pivot.Rotation <- Vector3(newRotation, this.pivot.Rotation.y, this.pivot.Rotation.z)
 
 
 // this.velocity <- this.applyPhysics direction this.velocity delta

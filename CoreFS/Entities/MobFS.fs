@@ -1,10 +1,8 @@
 ﻿namespace CoreFS.Entities
 
 open CoreFS.Util
+open CoreFS.Util.Domain
 open Godot
-
-[<Signal>]
-type SquashedSignal = delegate of unit -> unit
 
 type MobFS() =
     inherit KinematicBody()

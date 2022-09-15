@@ -7,16 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Util\Extensions.fs"/>
         <Compile Include="Util\Constants.fs"/>
         <Compile Include="Util\Domain\PlayerState.fs"/>
+        <Compile Include="Util\Domain\MobState.fs"/>
         <Compile Include="Util\DU\ActionInput.fs"/>
         <Compile Include="Util\DU\MovementInput.fs"/>
         <Compile Include="Util\Vector3Util.fs"/>
         <Compile Include="Util\RandomUtil.fs"/>
         <Compile Include="Util\InputUtil.fs"/>
         <Compile Include="Scenes\MainFS.fs"/>
-        <Compile Include="Entities\PlayerFS.fs"/>
         <Compile Include="Entities\MobFS.fs"/>
+        <Compile Include="Entities\PlayerFS.fs"/>
     </ItemGroup>
 
     <ItemGroup>

@@ -50,6 +50,7 @@ type JumpingMovingData =
           FallAcceleration = DefaultsValues.FallAcceleration
           JumpImpulse = DefaultsValues.JumpImpulse }
 
+
 type MovementData =
     | Idle of IdleData
     | Jumping of JumpingMovingData
