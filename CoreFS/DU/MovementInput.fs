@@ -1,6 +1,7 @@
-﻿namespace CoreFS.Util.DU
+﻿namespace CoreFS.DU
 
-open CoreFS.Util.Constants
+open CoreFS.Constants
+open CoreFS.Domain
 open Godot
 open Microsoft.FSharp.Reflection
 
@@ -20,6 +21,14 @@ type MovementInput =
         | Back -> MovementConstants.MoveBack
         | _ -> MovementConstants.UnsupportedInput
 
+    static member toMovementInput(name: string) =
+        match name with
+        | "move_left" -> MovementInput.Left
+        | "move_right" -> MovementInput.Right
+        | "move_forward" -> MovementInput.Forward
+        | "move_back" -> MovementInput.Back
+        | _ -> MovementInput.Unsupported
+
     member this.AsVector() =
         match this with
         | Right -> Vector3(1.0f, 0.0f, 0.0f)
@@ -35,3 +44,14 @@ type MovementInput =
 type InputType =
     | Movement of MovementInput
     | Action of ActionInput
+    static member toInput(name: string) : InputType =
+        match name with
+        | "jump" ->
+            let defaults = JumpingMovingData.Default()
+            Action(ActionInput.Jump defaults)
+        | "pause" -> Action(ActionInput.Pause true)
+        | "move_left" -> Movement(MovementInput.Left)
+        | "move_right" -> Movement(MovementInput.Right)
+        | "move_forward" -> Movement(MovementInput.Forward)
+        | "move_back" -> Movement(MovementInput.Back)
+        | _ -> Movement(MovementInput.Unsupported)

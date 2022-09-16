@@ -1,6 +1,6 @@
-﻿namespace CoreFS.Util.Domain
+﻿namespace CoreFS.Domain
 
-open CoreFS.Util.Constants
+open CoreFS.Constants
 open Godot
 
 [<Signal>]
@@ -41,6 +41,7 @@ type JumpingMovingData =
       JumpImpulse: JumpImpulse
       FallAcceleration: FallAcceleration
       PlaybackSpeed: AnimationPlaybackSpeed
+      Position: PositionSpace
       Direction: Direction }
     static member Default() =
         { PlaybackSpeed = DefaultsValues.PlaybackAnimationSpeed
@@ -48,6 +49,7 @@ type JumpingMovingData =
           Bounce = DefaultsValues.BounceImpulse
           MoveSpeed = DefaultsValues.Speed
           FallAcceleration = DefaultsValues.FallAcceleration
+          Position = Ground
           JumpImpulse = DefaultsValues.JumpImpulse }
 
 

@@ -1,7 +1,7 @@
 ﻿namespace CoreFS.Entities
 
+open CoreFS.Domain
 open CoreFS.Util
-open CoreFS.Util.Domain
 open Godot
 
 type MobFS() =

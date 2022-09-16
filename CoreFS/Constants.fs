@@ -1,4 +1,4 @@
-﻿namespace CoreFS.Util.Constants
+﻿namespace CoreFS.Constants
 
 module DefaultsValues =
     [<Literal>]

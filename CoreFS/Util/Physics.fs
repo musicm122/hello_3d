@@ -1,23 +1,33 @@
 ﻿namespace CoreFS.Util
 
 open Godot
+open CoreFS.Util.Extensions
+open CoreFS.Domain
 
 module Physics =
     let applyVelocity (velocity: Vector3) (direction: Vector3) (speed: float32) =
-        Vector3(direction.x * speed, velocity.y, direction.z * speed)
+        velocity
+            .WithX(direction.x * speed)
+            .WithZ(direction.z * speed)
 
     let applyGravity (currentVelocity: Vector3) fallAcceleration delta =
-        let newY =
-            (currentVelocity.y - (fallAcceleration * delta))
-
-        Vector3(currentVelocity.x, newY, currentVelocity.z)
+        currentVelocity.WithY((currentVelocity.y - (fallAcceleration * delta)))
 
     let applyRotation (spatial: Spatial) (velocity: Vector3) jumpImpulse =
-        let newRotation =
-            Mathf.Pi / 6f * velocity.y / jumpImpulse
+        spatial.Rotation.WithX(Mathf.Pi / 6f * velocity.y / jumpImpulse)
 
-        spatial.Rotation <- Vector3(newRotation, spatial.Rotation.y, spatial.Rotation.z)
-        spatial.Rotation
+    let applySquashPhysics (velocity: Vector3) bounceImpulse = velocity.WithY(bounceImpulse)
 
-    let applySquashPhysics (velocity: Vector3) bounceImpulse =
-        Vector3(velocity.x, bounceImpulse, velocity.z)
+    let calcVelocity (state: PlayerState) currVelocity speed =
+        match state with
+        | PlayerState.Idle idleState -> applyVelocity currVelocity idleState.Direction speed
+        | PlayerState.Moving movingState -> applyVelocity currVelocity movingState.Direction speed
+        | PlayerState.Jumping jumpData ->
+            match jumpData.Position with
+            | Ground ->
+                let newV =
+                    applyVelocity currVelocity jumpData.Direction speed
+
+                newV.AddToY(jumpData.JumpImpulse)
+            | _ -> applyVelocity currVelocity jumpData.Direction speed
+        | _ -> currVelocity

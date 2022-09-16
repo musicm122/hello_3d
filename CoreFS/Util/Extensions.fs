@@ -1,9 +1,22 @@
-﻿namespace CoreFS.Util.Extensions
+﻿namespace CoreFS.Util
 
 open Godot
 
 [<AutoOpen>]
 module Extensions =
+    type Vector3 with
+        member this.WithX(newX) = Vector3(newX, this.y, this.z)
+
+        member this.AddToX(newX) = Vector3(this.x + newX, this.y, this.z)
+
+        member this.WithY(newY) = Vector3(this.x, newY, this.z)
+
+        member this.AddToY(newY) = Vector3(this.x, this.y + newY, this.z)
+
+        member this.WithZ(newZ) = Vector3(this.x, this.y, newZ)
+        member this.AddToZ(newZ) = Vector3(this.x, this.y, this.z + newZ)
+
+
     type KinematicCollision with
         member this.ColliderIsInGroup(groupName: string) : bool =
             if this <> null then

@@ -1,4 +1,4 @@
-﻿namespace CoreFS.Util.Domain
+﻿namespace CoreFS.Domain
 
 open Godot
 

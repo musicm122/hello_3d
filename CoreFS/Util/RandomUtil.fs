@@ -1,17 +1,19 @@
-﻿module CoreFS.Util.RandomUtil
+﻿namespace CoreFS.Util
 
 open System
 
-let intInRange min max = Random().Next(min, max)
+module RandomUtil =
 
-let doubleInRange min max =
-    (Random().NextDouble() * max - min) + min
+    let intInRange min max = Random().Next(min, max)
 
-let float32InRange (min: float32) (max: float32) =
-    let minDouble = (float) min
-    let maxDouble = (float) max
+    let doubleInRange min max =
+        (Random().NextDouble() * max - min) + min
 
-    let result =
-        doubleInRange minDouble maxDouble
+    let float32InRange (min: float32) (max: float32) =
+        let minDouble = (float) min
+        let maxDouble = (float) max
 
-    float32 (result)
+        let result =
+            doubleInRange minDouble maxDouble
+
+        float32 (result)
