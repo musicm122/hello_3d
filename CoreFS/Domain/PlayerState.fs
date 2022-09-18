@@ -21,7 +21,7 @@ type IdleData =
     { PlaybackSpeed: AnimationPlaybackSpeed
       Direction: Direction }
     static member Default() =
-        { PlaybackSpeed = DefaultsValues.PlaybackAnimationSpeed
+        { PlaybackSpeed = DefaultPlayerValues.PlaybackAnimationSpeed
           Direction = Vector3.Zero }
 
 type GroundedMovingData =
@@ -30,10 +30,10 @@ type GroundedMovingData =
       PlaybackSpeed: AnimationPlaybackSpeed
       Direction: Direction }
     static member Default() =
-        { PlaybackSpeed = DefaultsValues.PlaybackAnimationSpeed
+        { PlaybackSpeed = DefaultPlayerValues.PlaybackAnimationSpeed
           Direction = Vector3.Zero
-          Bounce = DefaultsValues.BounceImpulse
-          MoveSpeed = DefaultsValues.Speed }
+          Bounce = DefaultPlayerValues.BounceImpulse
+          MoveSpeed = DefaultPlayerValues.Speed }
 
 type JumpingMovingData =
     { MoveSpeed: Speed
@@ -44,13 +44,13 @@ type JumpingMovingData =
       Position: PositionSpace
       Direction: Direction }
     static member Default() =
-        { PlaybackSpeed = DefaultsValues.PlaybackAnimationSpeed
+        { PlaybackSpeed = DefaultPlayerValues.PlaybackAnimationSpeed
           Direction = Vector3.Zero
-          Bounce = DefaultsValues.BounceImpulse
-          MoveSpeed = DefaultsValues.Speed
-          FallAcceleration = DefaultsValues.FallAcceleration
+          Bounce = DefaultPlayerValues.BounceImpulse
+          MoveSpeed = DefaultPlayerValues.Speed
+          FallAcceleration = DefaultPlayerValues.FallAcceleration
           Position = Ground
-          JumpImpulse = DefaultsValues.JumpImpulse }
+          JumpImpulse = DefaultPlayerValues.JumpImpulse }
 
 
 type MovementData =
@@ -68,3 +68,32 @@ type PlayerState =
     | TakingDamage of TakeDamageData
     | Paused
     | Unpaused
+
+type PlayerModel =
+    { onFrameTick: Option<(float32 -> unit)>
+      onPhysicsTick: Option<(float32 -> unit)>
+      onMobCollision: Option<(Spatial -> unit)>
+      getCollidersInGroup: Option<string -> Option<seq<KinematicCollision>>>
+      die: Option<(unit -> unit)>
+      speed: float32
+      velocity: Vector3
+      jumpImpulse: float32
+      bounceImpulse: float32
+      fallAcceleration: float32
+      pivot: Spatial
+      self: KinematicBody
+      animationPlayer: AnimationPlayer }
+    static member Default (owner: KinematicBody) (pivot: Spatial) (animPlayer: AnimationPlayer) =
+        { onFrameTick = None
+          onPhysicsTick = None
+          onMobCollision = None
+          getCollidersInGroup = None
+          die = None
+          speed = DefaultPlayerValues.Speed
+          velocity = Vector3.Zero
+          jumpImpulse = DefaultPlayerValues.JumpImpulse
+          bounceImpulse = DefaultPlayerValues.BounceImpulse
+          fallAcceleration = DefaultPlayerValues.FallAcceleration
+          pivot = pivot
+          self = owner
+          animationPlayer = animPlayer }

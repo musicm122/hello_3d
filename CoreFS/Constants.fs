@@ -1,6 +1,6 @@
 ﻿namespace CoreFS.Constants
 
-module DefaultsValues =
+module DefaultPlayerValues =
     [<Literal>]
     let PlaybackAnimationSpeed = 1
 

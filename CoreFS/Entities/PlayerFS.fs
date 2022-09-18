@@ -49,6 +49,44 @@ type PlayerFS() =
     override this._Ready() : unit = GD.Print "OnReady Player"
 
     // takes player state and preform some actions
+    static member processPlayerState (model: PlayerModel) (state: PlayerState) (delta: float32) =
+        let mutable resultingVelocity =
+            model.velocity
+
+        let mobStepHandler (slideCollision: KinematicCollision) =
+            let mob = slideCollision.Collider :?> MobFS
+
+            if Vector3.Up.Dot(slideCollision.Normal) > 0.1f then
+                mob.squash ()
+                resultingVelocity <- Physics.applySquashPhysics resultingVelocity model.bounceImpulse
+
+        let calculateVelocity (initVelocity) =
+            let mutable vec = initVelocity
+            vec <- Physics.calcVelocity state vec model.speed
+            vec <- Physics.applyGravity vec model.fallAcceleration delta
+            vec <- model.self.MoveAndSlide(vec, Vector3.Up)
+            vec
+
+        let colliderCheck () =
+            match model.getCollidersInGroup with
+            | Some getColliders ->
+                match getColliders "mob" with
+                | Some colliders -> colliders |> Seq.iter mobStepHandler
+                | None -> ()
+            | None -> ()
+
+        match state with
+        | Idle idleState -> model.animationPlayer.PlaybackSpeed <- float32 idleState.PlaybackSpeed
+        | Moving movingState ->
+            model.pivot.LookAt(model.self.Translation + movingState.Direction, Vector3.Up)
+            model.animationPlayer.PlaybackSpeed <- float32 movingState.PlaybackSpeed
+        | _ -> ()
+
+        resultingVelocity <- calculateVelocity resultingVelocity
+        colliderCheck ()
+
+        model.pivot.Rotation <- Physics.applyRotation model.pivot resultingVelocity model.jumpImpulse
+
 
     member this.processState (state: PlayerState) (delta: float32) =
         let mobStepHandler (slideCollision: KinematicCollision) =
@@ -78,6 +116,18 @@ type PlayerFS() =
         colliderCheck ()
         this.pivot.Rotation <- this.applyRotation this.pivot
 
+    member this.playerModel() =
+        GD.Print("playerModel called")
+        let pivot = this.GetNode<Spatial>("Pivot")
+
+        let animPlayer =
+            this.GetNode<AnimationPlayer>("AnimationPlayer")
+
+        { PlayerModel.Default this pivot animPlayer with
+            die = Some this.die
+            onPhysicsTick = Some this._PhysicsProcess
+            onMobCollision = Some this.onMobDetector_BodyEntered }
+
     //input -> playerState-> side effects
     override this._PhysicsProcess(delta: float32) =
         Input.pollForInput
@@ -87,4 +137,13 @@ type PlayerFS() =
                 | false -> PositionSpace.Air
               isShortPressedPredicate = Input.IsActionJustPressed
               isLongPressedPredicate = Input.IsActionPressed }
-        |> Array.iter (fun playerState -> this.processState playerState delta)
+        |> Array.iter (fun playerState -> PlayerFS.processPlayerState (this.playerModel ()) playerState delta)
+
+// Input.pollForInput
+//     { playerSpace =
+//         match this.IsOnFloor() with
+//         | true -> PositionSpace.Ground
+//         | false -> PositionSpace.Air
+//       isShortPressedPredicate = Input.IsActionJustPressed
+//       isLongPressedPredicate = Input.IsActionPressed }
+// |> Array.iter (fun playerState -> this.processState playerState delta)
