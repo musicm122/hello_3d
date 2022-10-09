@@ -2,18 +2,22 @@
 
 open System
 
-module RandomUtil =
+[<AutoOpen>]
+type RandomUtil =
 
-    let intInRange min max = Random().Next(min, max)
+    static member getRandIntInRange min max =
+        let r = new Godot.RandomNumberGenerator()
+        r.RandiRange(min, max)
 
-    let doubleInRange min max =
+    static member getDoubleInRange min max =
         (Random().NextDouble() * max - min) + min
 
-    let float32InRange (min: float32) (max: float32) =
-        let minDouble = (float) min
-        let maxDouble = (float) max
+    static member getRandFloat32InRange (min: float32) (max: float32) =
+        let r = new Godot.RandomNumberGenerator()
+        r.RandfRange(min, max)
 
-        let result =
-            doubleInRange minDouble maxDouble
+    static member getRandFloat32() =
+        let r = new Godot.RandomNumberGenerator()
+        r.Randf()
 
-        float32 (result)
+    static member getRandFloat() = float (Random().NextDouble())

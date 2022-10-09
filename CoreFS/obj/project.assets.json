@@ -5,10 +5,14 @@
       "FSharp.Core/6.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/FSharp.Core.dll": {}
+          "lib/netstandard2.0/FSharp.Core.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/FSharp.Core.dll": {}
+          "lib/netstandard2.0/FSharp.Core.dll": {
+            "related": ".xml"
+          }
         },
         "resource": {
           "lib/netstandard2.0/cs/FSharp.Core.resources.dll": {
@@ -69,10 +73,14 @@
           "System.Runtime"
         ],
         "compile": {
-          "lib/net45/FSharpPlus.dll": {}
+          "lib/net45/FSharpPlus.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/FSharpPlus.dll": {}
+          "lib/net45/FSharpPlus.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.ValueTuple/4.4.0": {
@@ -81,10 +89,14 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net47/System.ValueTuple.dll": {}
+          "ref/net47/System.ValueTuple.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net47/System.ValueTuple.dll": {}
+          "lib/net47/System.ValueTuple.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
@@ -281,7 +293,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\terra\\.nuget\\packages\\": {}
+    "C:\\Users\\terra\\.nuget\\packages\\": {},
+    "C:\\Users\\terra\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -292,8 +305,12 @@
       "packagesPath": "C:\\Users\\terra\\.nuget\\packages\\",
       "outputPath": "C:\\Projects\\godot\\Experminents\\hello_3d\\CoreFS\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Users\\terra\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "C:\\Users\\terra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\terra\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -326,7 +343,7 @@
             "generatePathProperty": true
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.108\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

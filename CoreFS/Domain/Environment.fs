@@ -1,5 +1,12 @@
 namespace CoreFS.Domain
 
+type GameState =
+    | StartMenu
+    | Playing
+    | Paused
+    | YouDied
+    | Quit
+
 type PositionSpace =
     | Ground
     | Air
@@ -9,10 +16,12 @@ type IsLongPress = string -> bool
 
 
 type EnvironmentState =
-    { playerSpace: PositionSpace
+    { gameState: GameState
+      playerSpace: PositionSpace
       isShortPressedPredicate: IsShortPress
       isLongPressedPredicate: IsLongPress }
     static member Default() =
-        { playerSpace = Ground
+        { gameState = GameState.Playing
+          playerSpace = Ground
           isLongPressedPredicate = fun _ -> failwith "not implemented"
           isShortPressedPredicate = fun _ -> failwith "not implemented" }

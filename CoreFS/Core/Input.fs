@@ -1,10 +1,31 @@
-﻿namespace CoreFS.Util
+namespace CoreFS.Util
 
-open CoreFS.DU
 open CoreFS.Constants
+open CoreFS.DU
 open CoreFS.Domain
+open Godot
 
-module InputUtil =
+module InputEvents =
+    type SystemInputEvent() =
+        inherit Event<InputEvent>()
+
+module Input =
+    let getDirectionFromInput () =
+        let mutable direction = Vector3.Zero
+
+        if Input.IsActionPressed(MovementConstants.MoveRight) then
+            direction <- direction.AddToX(1f)
+
+        if Input.IsActionPressed(MovementConstants.MoveLeft) then
+            direction <- direction.AddToX(-1f)
+
+        if Input.IsActionPressed(MovementConstants.MoveBack) then
+            direction <- direction.AddToZ(1f)
+
+        if Input.IsActionPressed(MovementConstants.MoveForward) then
+            direction <- direction.AddToZ(-1f)
+
+        direction.Normalized()
 
     let detectActiveInput inputCheck =
         let applyInputCheck checkTestFun (input: InputType) : PlayerState = checkTestFun input

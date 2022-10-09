@@ -13,8 +13,12 @@
         "packagesPath": "C:\\Users\\terra\\.nuget\\packages\\",
         "outputPath": "C:\\Projects\\godot\\Experminents\\hello_3d\\CoreFS\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Users\\terra\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
+        ],
         "configFilePaths": [
           "C:\\Users\\terra\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\terra\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -47,7 +51,7 @@
               "generatePathProperty": true
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.108\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

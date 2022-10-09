@@ -16,7 +16,6 @@ module Extensions =
         member this.WithZ(newZ) = Vector3(this.x, this.y, newZ)
         member this.AddToZ(newZ) = Vector3(this.x, this.y, this.z + newZ)
 
-
     type KinematicCollision with
         member this.ColliderIsInGroup(groupName: string) : bool =
             if this <> null then

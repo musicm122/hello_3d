@@ -8,20 +8,22 @@
 
     <ItemGroup>
         <Compile Include="Constants.fs"/>
+        <Compile Include="Util\Extensions.fs"/>
+        <Compile Include="Util\RandomUtil.fs"/>
+        <Compile Include="Util\Vector3Util.fs"/>
         <Compile Include="Domain\Environment.fs"/>
+        <Compile Include="Domain\CommonState.fs"/>
         <Compile Include="Domain\PlayerState.fs"/>
         <Compile Include="Domain\MobState.fs"/>
         <Compile Include="DU\ActionInput.fs"/>
         <Compile Include="DU\MovementInput.fs"/>
-        <Compile Include="Util\Extensions.fs"/>
-        <Compile Include="Util\Vector3Util.fs"/>
-        <Compile Include="Util\Physics.fs"/>
-        <Compile Include="Util\RandomUtil.fs"/>
-        <Compile Include="Util\InputUtil.fs"/>
-        <Compile Include="Util\Input.fs"/>
-        <Compile Include="Scenes\MainFS.fs"/>
+        <Compile Include="Core\Physics.fs"/>
+        <Compile Include="Core\Input.fs"/>
+        <Compile Include="GlobalFS.fs"/>
         <Compile Include="Entities\MobFS.fs"/>
         <Compile Include="Entities\PlayerFS.fs"/>
+        <Compile Include="Entities\ScoreLabelFS.fs"/>
+        <Compile Include="Scenes\MainFS.fs"/>
         <Content Include=".gitignore"/>
     </ItemGroup>
 

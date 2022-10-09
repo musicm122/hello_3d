@@ -1,7 +1,6 @@
 ﻿namespace CoreFS.DU
 
 open CoreFS.Constants
-open CoreFS.Domain
 open Godot
 open Microsoft.FSharp.Reflection
 
@@ -46,10 +45,8 @@ type InputType =
     | Action of ActionInput
     static member toInput(name: string) : InputType =
         match name with
-        | "jump" ->
-            let defaults = JumpingMovingData.Default()
-            Action(ActionInput.Jump defaults)
-        | "pause" -> Action(ActionInput.Pause true)
+        | "jump" -> Action(ActionInput.Jump)
+        | "pause" -> Action(ActionInput.Pause)
         | "move_left" -> Movement(MovementInput.Left)
         | "move_right" -> Movement(MovementInput.Right)
         | "move_forward" -> Movement(MovementInput.Forward)

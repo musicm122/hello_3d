@@ -14,6 +14,20 @@ config/name="Hello 3d"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://Global.tscn"
+
+[display]
+
+window/size/width=720
+window/size/height=540
+window/size/fullscreen=true
+
+[editor]
+
+scene_naming=1
+
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/godot-fsharp-tools/plugin.cfg" )
@@ -59,11 +73,19 @@ jump={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="player"
+3d_physics/layer_2="enemies"
+3d_physics/layer_3="world"
+
 [mono]
 
+project/assembly_name="Hello 3d"
+profiler/enabled=true
 f#_tools/auto_generate_f#_scripts=false
 f#_tools/default_output_dir=""
-f#_tools/default_namespace=""
+f#_tools/default_namespace="CoreFS"
 
 [physics]
 

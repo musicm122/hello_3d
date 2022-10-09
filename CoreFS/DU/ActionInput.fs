@@ -1,12 +1,11 @@
 ﻿namespace CoreFS.DU
 
 open CoreFS.Constants
-open CoreFS.Domain
 open Microsoft.FSharp.Reflection
 
 type ActionInput =
-    | Jump of JumpingMovingData
-    | Pause of bool
+    | Jump
+    | Pause
     | Idle
     member this.asString() =
         match this with
@@ -15,12 +14,22 @@ type ActionInput =
 
     static member toActionInput(name: string) : ActionInput =
         match name with
-        | "jump" ->
-            let defaults = JumpingMovingData.Default()
-            ActionInput.Jump defaults
-        | "pause" -> ActionInput.Pause true
+        | "jump" -> ActionInput.Jump
+        | "pause" -> ActionInput.Pause
         | _ -> ActionInput.Idle
 
     static member ActionInputs =
-        FSharpType.GetUnionCases typeof<ActionInput>
-        |> Array.map (fun case -> FSharpValue.MakeUnion(case, [||]) :?> ActionInput)
+        let castCaseToActionInput case =
+            let unionCase =
+                FSharpValue.MakeUnion(case, [||])
+
+            let actionInput = unionCase :?> ActionInput
+            actionInput
+
+        let cases =
+            FSharpType.GetUnionCases typeof<ActionInput>
+
+        let retval =
+            cases |> Array.map (castCaseToActionInput)
+
+        retval

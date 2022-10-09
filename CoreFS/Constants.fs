@@ -1,8 +1,27 @@
 ﻿namespace CoreFS.Constants
 
+module ActivePatterns =
+    let (|EmptySeq|_|) a = if Seq.isEmpty a then Some() else None
+
+
+module Events =
+
+    type SystemInitialize() =
+        inherit Event<unit>()
+
+    type ProcessFrameEvent() =
+        inherit Event<float32>()
+
+    type ProcessPhysicsEvent() =
+        inherit Event<float32>()
+
+
 module DefaultPlayerValues =
     [<Literal>]
-    let PlaybackAnimationSpeed = 1
+    let IdlePlaybackAnimationSpeed = 1
+
+    [<Literal>]
+    let MovementPlaybackAnimationSpeed = 4
 
     [<Literal>]
     let Speed = 14.0f
@@ -15,6 +34,12 @@ module DefaultPlayerValues =
 
     [<Literal>]
     let FallAcceleration = 75.0f
+
+module DefaultMobValues =
+    let MinSpeed = 10.0f
+    let MaxSpeed = 18.0f
+
+
 
 module ActionConstants =
     [<Literal>]
